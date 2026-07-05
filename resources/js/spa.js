@@ -8,7 +8,7 @@
 // SweetAlert Toast Helper
 // ─────────────────────────────────────────────────────────────
 
-const SpaToast = (typeof Swal !== 'undefined') ? Swal.mixin({
+var SpaToast = (typeof Swal !== 'undefined') ? Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,

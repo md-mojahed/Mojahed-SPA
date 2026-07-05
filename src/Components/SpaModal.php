@@ -13,6 +13,9 @@ class SpaModal extends Component
     public bool $staticBackdrop;
     public bool $scrollable;
 
+    // Serialized config passed safely to JS via @json
+    public array $config;
+
     public function __construct(
         string $id,
         string $size = 'lg',
@@ -27,6 +30,11 @@ class SpaModal extends Component
         $this->loaderType     = $loaderType ?: config('spa.default_loader', 'spinner');
         $this->staticBackdrop = $staticBackdrop;
         $this->scrollable     = $scrollable;
+
+        $this->config = [
+            'id'   => $this->id,
+            'type' => 'modal',
+        ];
     }
 
     public function render()

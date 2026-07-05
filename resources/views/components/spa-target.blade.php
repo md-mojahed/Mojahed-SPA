@@ -1,15 +1,8 @@
 <div
-    id="{{ $id }}"
-    x-data="spaContainer('{{ $id }}', 'target')"
+    id="{{ $config['id'] }}"
+    x-data='spaContainer(@json($config))'
     @spa-load.window="spaHandleLoad($event)"
     @spa-reset.window="spaHandleReset($event)"
-    @if($autoLoad && $url)
-        x-init="spaLoad({
-            url: '{{ $url }}',
-            method: '{{ $method }}',
-            params: @js($params)
-        })"
-    @endif
 >
     {{-- Loader --}}
     <div x-show="loading">

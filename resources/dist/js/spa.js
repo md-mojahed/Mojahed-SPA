@@ -171,7 +171,9 @@ async function spaRequest(url, method = 'get', data = {}, params = {}) {
 // Alpine: spaContainer — used by spa-modal, spa-offcanvas, spa-target
 // ─────────────────────────────────────────────────────────────
 
-function spaContainer(id, type) {
+function spaContainer(config = {}) {
+    const { id, type = 'target' } = config;
+
     return {
         id:      id,
         type:    type,
@@ -182,6 +184,15 @@ function spaContainer(id, type) {
         _params: {},
 
         init() {
+            // Auto-load on page ready (spa-target with auto-load="true")
+            if (config.autoLoad && config.url) {
+                this.spaLoad({
+                    url:    config.url,
+                    method: config.method || 'get',
+                    params: config.params || {}
+                });
+            }
+
             // Listen for reload events targeting this container
             window.addEventListener('spa-reload', (e) => {
                 if (e.detail.id === this.id && this._url) {
@@ -242,10 +253,10 @@ function spaContainer(id, type) {
 // Alpine: spaForm — used by spa-form component
 // ─────────────────────────────────────────────────────────────
 
-function spaForm(options = {}) {
-    const { url, method = 'post', model = 'formData', confirm = {}, onSuccess = {} } = options;
+function spaForm(config = {}) {
+    const { url, method = 'post', model = 'form', data = {}, confirm = {}, onSuccess = {} } = config;
 
-    return {
+    const state = {
         submitting: false,
         errors: {},
 
@@ -294,6 +305,11 @@ function spaForm(options = {}) {
             }
         }
     };
+
+    // Bind the form model holder so x-model="{model}.field" works out of the box
+    state[model] = data;
+
+    return state;
 }
 
 // ─────────────────────────────────────────────────────────────

@@ -25,6 +25,9 @@ class SpaLink extends Component
     public string $onSuccessRedirect;
     public string $onSuccessEmit;
 
+    // Serialized config passed safely to JS via @json
+    public array $config;
+
     public function __construct(
         string $url = '#',
         string $method = 'get',
@@ -65,6 +68,29 @@ class SpaLink extends Component
         $this->onSuccessToast    = $onSuccessToast;
         $this->onSuccessRedirect = $onSuccessRedirect;
         $this->onSuccessEmit     = $onSuccessEmit;
+
+        $this->config = [
+            'url'       => $this->url,
+            'method'    => $this->method,
+            'target'    => $this->target,
+            'modal'     => $this->modal,
+            'offcanvas' => $this->offcanvas,
+            'confirm'   => [
+                'enabled' => $this->confirm,
+                'title'   => $this->confirmTitle,
+                'text'    => $this->confirmText,
+                'type'    => $this->confirmType,
+                'ok'      => $this->confirmOk,
+                'cancel'  => $this->confirmCancel,
+            ],
+            'onSuccess' => [
+                'reload'   => $this->onSuccessReload,
+                'close'    => $this->onSuccessClose,
+                'toast'    => $this->onSuccessToast,
+                'redirect' => $this->onSuccessRedirect,
+                'emit'     => $this->onSuccessEmit,
+            ],
+        ];
     }
 
     public function render()

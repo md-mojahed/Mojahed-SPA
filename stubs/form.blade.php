@@ -1,6 +1,6 @@
 {{--
-    This blade is loaded as a fragment inside spa-modal.
-    x-data="spaForm(...)" is provided by <x-spa-form>.
+    Loaded as a fragment into spa-modal.
+    Initial field values come from the :data prop -> x-model binds to them.
     Access errors via: errors.field_name
     Access submitting state via: submitting
 --}}
@@ -9,25 +9,13 @@
     url="{{ isset($item) ? route('items.update', $item->id) : route('items.store') }}"
     method="{{ isset($item) ? 'PUT' : 'POST' }}"
     model="form"
+    :data="[
+        'name'   => $item->name ?? '',
+        'status' => $item->status ?? 'active',
+    ]"
     on-success-reload="#table-wrapper"
     on-success-close="#form-modal"
     on-success-toast="{{ isset($item) ? 'Item updated.' : 'Item created.' }}"
-    x-data="{
-        form: {
-            name:   '{{ $item->name ?? '' }}',
-            status: '{{ $item->status ?? 'active' }}',
-        },
-        ...spaForm({
-            url:    '{{ isset($item) ? route('items.update', $item->id) : route('items.store') }}',
-            method: '{{ isset($item) ? 'PUT' : 'POST' }}',
-            model:  'form',
-            onSuccess: {
-                reload:   'table-wrapper',
-                close:    'form-modal',
-                toast:    '{{ isset($item) ? 'Item updated.' : 'Item created.' }}'
-            }
-        })
-    }"
 >
     <div class="modal-header">
         <h6 class="modal-title fw-semibold">

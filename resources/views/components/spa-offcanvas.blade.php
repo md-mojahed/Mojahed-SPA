@@ -3,7 +3,7 @@
     tabindex="-1"
     id="{{ $id }}"
     style="width: {{ $width }};"
-    x-data="spaContainer('{{ $id }}', 'offcanvas')"
+    x-data='spaContainer(@json($config))'
     @spa-load.window="spaHandleLoad($event)"
     @spa-reset.window="spaHandleReset($event)"
 >

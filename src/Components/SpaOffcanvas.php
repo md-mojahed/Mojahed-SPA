@@ -12,6 +12,9 @@ class SpaOffcanvas extends Component
     public string $width;
     public string $loaderType;
 
+    // Serialized config passed safely to JS via @json
+    public array $config;
+
     public function __construct(
         string $id,
         string $title = '',
@@ -24,6 +27,11 @@ class SpaOffcanvas extends Component
         $this->placement   = $placement;
         $this->width       = $width;
         $this->loaderType  = $loaderType ?: config('spa.default_loader', 'spinner');
+
+        $this->config = [
+            'id'   => $this->id,
+            'type' => 'offcanvas',
+        ];
     }
 
     public function render()

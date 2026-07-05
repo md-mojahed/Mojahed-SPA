@@ -228,21 +228,18 @@ Same props as `<x-spa-btn>`, renders as an `<a>` tag.
 
 ### `<x-spa-form>` — Axios Form Submit
 
-Handles form submission with error binding and submitting state.
+Handles form submission with error binding and submitting state. Pass initial
+field values through `:data` and bind inputs with `x-model="{model}.{field}"`.
 
 ```html
 <x-spa-form
     url="{{ route('items.store') }}"
     method="POST"
+    model="form"
+    :data="['name' => '', 'status' => 'active']"
     on-success-reload="#table-wrapper"
     on-success-close="#form-modal"
     on-success-toast="Saved!"
-    x-data="{
-        form: { name: '', status: 'active' },
-        ...spaForm({ url: '{{ route('items.store') }}', method: 'POST', model: 'form',
-            onSuccess: { reload: 'table-wrapper', close: 'form-modal', toast: 'Saved!' }
-        })
-    }"
 >
     <input type="text" x-model="form.name" :class="{ 'is-invalid': errors.name }">
     <div class="invalid-feedback" x-text="errors.name"></div>
@@ -253,6 +250,15 @@ Handles form submission with error binding and submitting state.
     </button>
 </x-spa-form>
 ```
+
+**Props**
+
+| Prop | Default | Description |
+|---|---|---|
+| `url` | required | Submit URL |
+| `method` | `post` | HTTP method |
+| `model` | `form` | Name of the Alpine data object holding the fields |
+| `:data` | `[]` | Initial field values, e.g. `:data="['name' => $item->name]"` |
 
 ---
 

@@ -10,6 +10,7 @@ class SpaForm extends Component
     public string $url;
     public string $method;
     public string $model;
+    public array $data;
 
     public string $onSuccessReload;
     public string $onSuccessClose;
@@ -24,11 +25,15 @@ class SpaForm extends Component
     public string $confirmOk;
     public string $confirmCancel;
 
+    // Serialized config passed safely to JS via @json
+    public array $config;
+
     public function __construct(
         string $url,
         string $method = 'post',
         string $id = '',
-        string $model = 'formData',
+        string $model = 'form',
+        array $data = [],
 
         string $onSuccessReload = '',
         string $onSuccessClose = '',
@@ -47,6 +52,7 @@ class SpaForm extends Component
         $this->method = strtolower($method);
         $this->id     = $id ?: 'spa-form-' . uniqid();
         $this->model  = $model;
+        $this->data   = $data;
 
         $this->onSuccessReload   = $onSuccessReload;
         $this->onSuccessClose    = $onSuccessClose;
@@ -60,6 +66,28 @@ class SpaForm extends Component
         $this->confirmType   = $confirmType;
         $this->confirmOk     = $confirmOk     ?: config('spa.confirm.ok',     'Yes, proceed!');
         $this->confirmCancel = $confirmCancel ?: config('spa.confirm.cancel', 'Cancel');
+
+        $this->config = [
+            'url'       => $this->url,
+            'method'    => $this->method,
+            'model'     => $this->model,
+            'data'      => $this->data,
+            'confirm'   => [
+                'enabled' => $this->confirm,
+                'title'   => $this->confirmTitle,
+                'text'    => $this->confirmText,
+                'type'    => $this->confirmType,
+                'ok'      => $this->confirmOk,
+                'cancel'  => $this->confirmCancel,
+            ],
+            'onSuccess' => [
+                'reload'   => $this->onSuccessReload,
+                'close'    => $this->onSuccessClose,
+                'toast'    => $this->onSuccessToast,
+                'redirect' => $this->onSuccessRedirect,
+                'emit'     => $this->onSuccessEmit,
+            ],
+        ];
     }
 
     public function render()

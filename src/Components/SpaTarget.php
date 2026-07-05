@@ -15,6 +15,9 @@ class SpaTarget extends Component
     public string $method;
     public array $params;
 
+    // Serialized config passed safely to JS via @json
+    public array $config;
+
     public function __construct(
         string $id,
         string $url = '',
@@ -33,6 +36,15 @@ class SpaTarget extends Component
         $this->loaderCols = $loaderCols;
         $this->method     = strtolower($method);
         $this->params     = $params;
+
+        $this->config = [
+            'id'       => $this->id,
+            'type'     => 'target',
+            'autoLoad' => $this->autoLoad,
+            'url'      => $this->url,
+            'method'   => $this->method,
+            'params'   => $this->params,
+        ];
     }
 
     public function render()

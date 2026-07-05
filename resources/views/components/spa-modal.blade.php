@@ -5,7 +5,7 @@
     aria-labelledby="{{ $id }}-label"
     aria-hidden="true"
     @if($staticBackdrop) data-bs-backdrop="static" data-bs-keyboard="false" @endif
-    x-data="spaContainer('{{ $id }}', 'modal')"
+    x-data='spaContainer(@json($config))'
     @spa-load.window="spaHandleLoad($event)"
     @spa-reset.window="spaHandleReset($event)"
 >

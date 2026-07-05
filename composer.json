@@ -1,0 +1,30 @@
+{
+    "name": "mojahed/spa",
+    "description": "A Laravel SPA package using Alpine.js, Axios and Bootstrap — blade components, directives and JS utilities to build dynamic single-page applications without a build step.",
+    "keywords": ["laravel", "spa", "alpine", "axios", "bootstrap", "blade", "components"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Md. Mojahedul Islam",
+            "email": "dev.mojahedul@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahed\\Spa\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mojahed\\Spa\\SpaServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

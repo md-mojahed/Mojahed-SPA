@@ -1,0 +1,40 @@
+/* mojahed/spa — Core Styles */
+
+/* ── Skeleton Loader ─────────────────────────────────────── */
+
+.spa-skeleton {
+    background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+    background-size: 200% 100%;
+    animation: spa-shimmer 1.4s infinite;
+    display: block;
+    min-width: 20px;
+}
+
+@keyframes spa-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ── Spinner Loader ──────────────────────────────────────── */
+
+.spa-loader-spinner {
+    min-height: 80px;
+}
+
+/* ── Table Skeleton ──────────────────────────────────────── */
+
+.spa-loader-table thead th,
+.spa-loader-table tbody td {
+    padding: 8px 10px;
+}
+
+/* ── Fade transition for content ────────────────────────── */
+
+[x-html] {
+    animation: spa-fadein 0.2s ease;
+}
+
+@keyframes spa-fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
